@@ -13,7 +13,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = Task.build(task_params)
     #@task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
@@ -30,6 +30,11 @@ class TasksController < ApplicationController
   end
 
   def update
+    if @task.update(task_params)
+      redirect_to tasks_path, notice: "タスクを編集しました"
+    else
+      render :edit
+    end
   end
 
   def destroy

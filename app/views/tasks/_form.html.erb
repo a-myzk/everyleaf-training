@@ -1,0 +1,21 @@
+<%= form_with(model: @task, local: true) do |form| %>
+
+  <div class="title_field">
+    <%= form.label :title, "タスク名" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="content_field">
+    <%= form.label :content, "タスク詳細" %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="actions">
+    <% if controller.action_name == "new" %>
+      <%= form.submit '登録する' %>
+    <% else controller.action_name == "edit" %>
+      <%= form.submit '更新する' %>
+    <% end %>
+  </div>
+
+<% end %>
