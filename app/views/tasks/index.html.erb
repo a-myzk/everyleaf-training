@@ -22,7 +22,7 @@
         <td><%= task.content %></td>
         <td><%= link_to "詳しく見る", task_path(task.id) %></td>
         <td><%= link_to "編集", edit_task_path(task.id) %></td>
-        <td><%#= link_to "Destroy", book, method: :delete, data: { confirm: "Are you sure?" } %></td>
+        <td><%= link_to "削除", task, method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
       </tr>
     <% end %>
   </tbody>
