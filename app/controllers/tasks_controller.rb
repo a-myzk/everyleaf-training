@@ -18,15 +18,10 @@ class TasksController < ApplicationController
     if params[:back]
       render :new
     else
-      respond_to do |format|
-        if @task.save
-          #ConfirmMailer.confirm_mail(@task).deliver
-          format.html { redirect_to @task, notice: "タスクを新規登録しました" }
-          format.json { render :show, status: :created, location: @task }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @task.errors, status: :unprocessable_entity }
-        end
+      if @task.save
+        redirect_to @task, notice: "タスクを新規登録しました"
+      else
+        render :new
       end
     end
   end
