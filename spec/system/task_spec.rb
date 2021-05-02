@@ -9,17 +9,17 @@ RSpec.describe 'タスク管理機能', type: :system do
         # 2. 新規登録内容を入力する
         #「タスク名」というラベル名の入力欄と、「タスク詳細」というラベル名の入力欄にタスクのタイトルと内容をそれぞれ入力する
         # ここに「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-        fill_in 'タスク名', with: 'タスク1'
+        fill_in 'タスク名', with: 'task'
         # ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-        fill_in 'タスク詳細', with: 'タスク1の詳細'
+        fill_in 'タスク詳細', with: 'task_content'
         # 3. 「登録する」というvalue（表記文字）のあるボタンをクリックする
         # ここに「登録する」というvalue（表記文字）のあるボタンをclick_onする（クリックする）する処理を書く
         click_on '登録する'
         # 4. clickで登録されたはずの情報が、タスク詳細ページに表示されているかを確認する
         # （タスクが登録されたらタスク詳細画面に遷移されるという前提）
         # ここにタスク詳細ページに、テストコードで作成したデータがタスク詳細画面にhave_contentされているか（含まれているか）を確認（期待）するコードを書く
-        expect(page).to have_content 'タスク1'
-        expect(page).to have_content 'タスク1の詳細'
+        expect(page).to have_content 'task'
+        expect(page).to have_content 'task_content'
       end
     end
   end
@@ -40,6 +40,9 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '詳細表示機能' do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do
+        task = FactoryBot.create(:task, title: 'task')
+        visit task_path(task.id)
+        expect(page).to have_content 'task'
       end
     end
   end
