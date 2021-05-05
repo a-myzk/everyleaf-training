@@ -1,0 +1,32 @@
+<%= form_with(model: @task, local: true) do |form| %>
+
+  <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h4><%= @task.errors.count %>件のエラーがあります。</h4>
+      <ul>
+      <% @task.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="title_field">
+    <%= form.label :title, "タスク名" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="content_field">
+    <%= form.label :content, "タスク詳細" %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="actions">
+    <% if controller.action_name == "new" %>
+      <%= form.submit '登録する' %>
+    <% else controller.action_name == "edit" %>
+      <%= form.submit '更新する' %>
+    <% end %>
+  </div>
+
+<% end %>
