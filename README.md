@@ -10,7 +10,7 @@
 | title | string | タスク名 |
 | content | text | タスク詳細 |
 | status | string | ステータス |
-| limit | datetime | 終了期限 |
+| deadline | datetime | 終了期限 |
 | priority | integer | 優先順位 |
 
 ### Userモデル
