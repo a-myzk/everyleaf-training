@@ -21,9 +21,14 @@
     <%= form.text_area :content %>
   </div>
 
-  <div class="content_field">
+  <div class="expired_a_field">
     <%= form.label :expired_at, "終了期限" %>
     <%= form.date_field :expired_at %>
+  </div>
+
+  <div class="status_field">
+    <%= form.label :status, "ステータス" %>
+    <%= form.select :status, [["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "選択してください"  %>
   </div>
 
   <div class="actions">
