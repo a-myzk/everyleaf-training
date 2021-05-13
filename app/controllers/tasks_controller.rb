@@ -8,11 +8,10 @@ class TasksController < ApplicationController
     # elsif params[:sort_priority]
     #   @tasks = Task.all.order(id: :DESC)
     elsif params[:search]
-      if params[:task].present?
-        @tasks = Task.all
-        binding.pry
+      if params[:search].present?
+        @task = Task.where('title like ?', "%#{params[:title_key]}%")
       else
-        @tasks = Task.all.order(expired_at: :DESC)
+        @tasks = Task.all
       end
     else
       @tasks = Task.all.order(id: :DESC)
@@ -65,3 +64,5 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :content, :expired_at, :status)
   end
 end
+
+
