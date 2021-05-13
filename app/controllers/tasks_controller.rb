@@ -9,7 +9,8 @@ class TasksController < ApplicationController
     #   @tasks = Task.all.order(id: :DESC)
     elsif params[:search]
       if params[:task].present?
-        @tasks = params[:task]
+        @tasks = Task.all
+        binding.pry
       else
         @tasks = Task.all.order(expired_at: :DESC)
       end
