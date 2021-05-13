@@ -7,6 +7,12 @@ class TasksController < ApplicationController
       @tasks = Task.all.order(expired_at: :DESC)
     # elsif params[:sort_priority]
     #   @tasks = Task.all.order(id: :DESC)
+    elsif params[:search]
+      if params[:task].present?
+        @tasks = params[:task]
+      else
+        @tasks = Task.all.order(expired_at: :DESC)
+      end
     else
       @tasks = Task.all.order(id: :DESC)
     end

@@ -4,6 +4,13 @@
 
 <br>
 
+<div class="search_box" >
+  <%= form_with(model: @task, local: true) do |form| %>
+    <%= form.label :title, "タスク名" %>
+    <%= form.text_field :title %>
+  <% end %>
+</div>
+
 <%= link_to "新しいタスクを登録する", new_task_path %>
 
 <table>
