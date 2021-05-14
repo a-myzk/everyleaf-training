@@ -5,10 +5,10 @@
 <br>
 
 <div class="search_box" >
-  <%= form_with(model: @task, method: 'get', local: true) do |form| %>
-    <%= form.label :title, "タスク名" %>
-    <%= form.text_field :title %>
-    <%= link_to "検索", tasks_path %>
+  <%= form_with model: @task, method: :get, local: true do |form| %>
+    <%= form.label :search_title, 'タスク名' %>
+    <%= form.text_field :search_title %>
+    <%= form.submit '検索' %>
   <% end %>
 </div>
 

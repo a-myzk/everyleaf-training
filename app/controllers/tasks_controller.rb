@@ -8,8 +8,9 @@ class TasksController < ApplicationController
     # elsif params[:sort_priority]
     #   @tasks = Task.all.order(id: :DESC)
     elsif params[:search]
-      if params[:search].present?
-        @task = Task.where('title like ?', "%#{params[:title_key]}%")
+      if params[:search_title].present?
+        # @tasks = Task.where('title like ?', "%#{params[:search_title]}%")
+        @tasks = tasks.search_title(params[:search_title])
       else
         @tasks = Task.all
       end
