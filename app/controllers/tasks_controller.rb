@@ -8,11 +8,14 @@ class TasksController < ApplicationController
     # elsif params[:sort_priority]
     #   @tasks = Task.all.order(id: :DESC)
     elsif params[:search]
-      if params[:search_title].present?
+      # もし渡されたパラメータがタイトルとステータス両方だったとき
+      if params[:search_title].present? && @tasks = Task.where(status: params[:status])
         # @tasks = Task.where('title like ?', "%#{params[:search_title]}%")
         @tasks = tasks.search_title(params[:search_title])
-      else
-        @tasks = Task.all
+      # もし渡されたパラメータがタイトルのみだったとき
+      elsif  params[:search_title].present?
+      # もし渡されたパラメータがステータスのみだったとき
+      elsif @tasks = Task.where(status: params[:status])
       end
     else
       @tasks = Task.all.order(id: :DESC)
