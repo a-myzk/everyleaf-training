@@ -9,8 +9,8 @@
 | id | integer | タスクID |
 | title | string | タスク名 |
 | content | text | タスク詳細 |
-| status | string | ステータス |
 | expired_at | datetime | 終了期限 |
+| status | integer | ステータス |
 | priority | integer | 優先順位 |
 
 ### Userモデル
