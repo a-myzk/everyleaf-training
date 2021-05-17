@@ -16,9 +16,13 @@
   <% end %>
 </div>
 
-<%= link_to "新しいタスクを登録する", new_task_path %>
+<h4>
+  <button type="button" class="btn btn-primary">
+    <%= link_to "新規登録", new_task_path, :style=>"color:white;" %>
+  </button>
+</h4>
 
-<table>
+<table  class="table">
   <thead>
     <tr>
       <th>タスク名</th>
@@ -38,9 +42,9 @@
         <td class="task_list"><%= task.expired_at %></td>
         <td class="task_list"><%= task.status %></td>
         <td class="task_list"><%= task.priority %></td>
-        <td><%= link_to "詳しく見る", task_path(task.id) %></td>
-        <td><%= link_to "編集", edit_task_path(task.id) %></td>
-        <td><%= link_to "削除", task, method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
+        <td><button type="button" class="btn btn-outline-primary"><%= link_to "詳細", task_path(task.id) %></button></td>
+        <td><button type="button" class="btn btn-outline-success"><%= link_to "編集", edit_task_path(task.id) %></button></td>
+        <td><button type="button" class="btn btn-outline-danger"><%= link_to "削除", task, method: :delete, data: { confirm: "本当に削除しますか？" } %></button></td>
       </tr>
     <% end %>
   </tbody>
