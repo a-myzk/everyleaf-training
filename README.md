@@ -4,13 +4,13 @@
 ## テーブルスキーマ
 
 ### Taskモデル
-| カラム名 | テーブル名 | 備考 |
+| カラム名 | データ型 | 備考 |
 | - | - | - |
 | id | integer | タスクID |
 | title | string | タスク名 |
 | content | text | タスク詳細 |
-| status | string | ステータス |
-| limit | datetime | 終了期限 |
+| expired_at | datetime | 終了期限 |
+| status | integer | ステータス |
 | priority | integer | 優先順位 |
 
 ### Userモデル

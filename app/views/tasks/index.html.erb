@@ -4,13 +4,32 @@
 
 <br>
 
-<%= link_to "新しいタスクを登録する", new_task_path %>
+<div class="search_box" >
+  <%= form_with(model: @task, method: :get, local: true) do |form| %>
+    <%= form.label :search_title, 'タスク名' %>
+    <%= form.text_field :search_title %>
 
-<table>
+    <%= form.label :search_status, 'ステータス名' %>
+    <%= form.select :search_status, Task.statuses.keys, {include_blank: "選択してください"} %>
+
+    <%= form.submit '検索', name: 'search' %>
+  <% end %>
+</div>
+
+<h4>
+  <button type="button" class="btn btn-primary">
+    <%= link_to "新規登録", new_task_path, :style=>"color:white;" %>
+  </button>
+</h4>
+
+<table  class="table">
   <thead>
     <tr>
       <th>タスク名</th>
       <th>タスク詳細</th>
+      <th class="sort_expired"><%= link_to "終了期限", tasks_path(sort_expired: "true") %></th>
+      <th>ステータス</th>
+      <th class="sort_priority"><%= link_to "優先度", tasks_path(sort_priority: "true") %></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,10 +39,16 @@
       <tr>
         <td class="task_list"><%= task.title %></td>
         <td class="task_list"><%= task.content %></td>
-        <td><%= link_to "詳しく見る", task_path(task.id) %></td>
-        <td><%= link_to "編集", edit_task_path(task.id) %></td>
-        <td><%= link_to "削除", task, method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
+        <td class="task_list"><%= task.expired_at %></td>
+        <td class="task_list"><%= task.status %></td>
+        <td class="task_list"><%= task.priority %></td>
+        <td><button type="button" class="btn btn-outline-primary"><%= link_to "詳細", task_path(task.id) %></button></td>
+        <td><button type="button" class="btn btn-outline-success"><%= link_to "編集", edit_task_path(task.id) %></button></td>
+        <td><button type="button" class="btn btn-outline-danger"><%= link_to "削除", task, method: :delete, data: { confirm: "本当に削除しますか？" } %></button></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+  <%= paginate @tasks, theme: 'twitter-bootstrap-4'%>
+
