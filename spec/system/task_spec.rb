@@ -48,8 +48,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     describe '検索機能' do
       before do
         # 必要に応じて、テストデータの内容を変更して構わない
-        FactoryBot.create(:task, title: "task")
-        FactoryBot.create(:second_task, title: "second_task")
+        FactoryBot.create(:task, title: 'task', expired_at: '2021-05-01 00:00:00', status: 1)
+        FactoryBot.create(:second_task, title: 'sample', expired_at: '2021-05-01 00:00:00', status: 1)
       end
       context 'タイトルであいまい検索をした場合' do
         it "検索キーワードを含むタスクで絞り込まれる" do
