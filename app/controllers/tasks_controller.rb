@@ -9,11 +9,11 @@ class TasksController < ApplicationController
       @tasks = Task.all.order(priority: :DESC).page(params[:page]).per(PER)
     elsif params[:search]
       if params[:search_title].present? && params[:search_status].present?
-        @tasks = tasks.search_title(params[:search_title]).search_status(params[:search_status]).page(params[:page]).per(PER)
-      elsif  params[:search_title].present?
-        @tasks = tasks.search_title(params[:search_title]).page(params[:page]).per(PER)
+        @tasks = Task.search_title(params[:search_title]).search_status(params[:search_status]).page(params[:page]).per(PER)
+      elsif params[:search_title].present?
+        @tasks = Task.search_title(params[:search_title]).page(params[:page]).per(PER)
       elsif params[:search_status].present?
-        @tasks = tasks.search_status(params[:search_status]).page(params[:page]).per(PER)
+        @tasks = Task.search_status(params[:search_status]).page(params[:page]).per(PER)
       else
         @tasks = Task.all.order(created_at: :DESC).page(params[:page]).per(PER)
       end
