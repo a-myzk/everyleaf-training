@@ -9,4 +9,4 @@
 name = "taro"
 email = "taro@a.com"
 password = "0000pppp"
-User.create!(name: name, email: email, password: password, password_confirmation: password)
+User.create!(name: name, email: email, password: password, password_confirmation: password, admin: true)
