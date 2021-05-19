@@ -31,7 +31,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.create(task_params)
-    #@task = current_user.tasks.build(task_params)
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     else
