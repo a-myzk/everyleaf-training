@@ -19,7 +19,7 @@ class Admin::UsersController < ApplicationController
   def create
     @user = user.new(user_params)
     if @user.save
-      redirect_to admin_users_path, notice:"ユーザー「#{@user.name}」を登録しました"
+      redirect_to admin_users_path, notice: "ユーザー「#{@user.name}」を登録しました"
     else
       render :new
     end
