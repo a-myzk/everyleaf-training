@@ -3,6 +3,7 @@ class TasksController < ApplicationController
   PER = 5
 
   def index
+    # @tasks = Task.where(user_id: current_user.id).includes(:user).order("created_at DESC")
     if params[:sort_expired]
       @tasks = Task.all.order(expired_at: :DESC).page(params[:page]).per(PER)
     elsif params[:sort_priority]
