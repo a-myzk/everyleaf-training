@@ -15,10 +15,10 @@ class TasksController < ApplicationController
       elsif params[:search_status].present?
         @tasks = current_user.tasks.search_status(params[:search_status]).page(params[:page]).per(PER)
       else
-        @tasks = current_user.tasks.all.order(created_at: :DESC).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.order(created_at: :DESC).page(params[:page]).per(PER)
       end
     else
-      @tasks = current_user.tasks.all.order(created_at: :DESC).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.order(created_at: :DESC).page(params[:page]).per(PER)
     end
   end
 
@@ -61,7 +61,7 @@ class TasksController < ApplicationController
 
   private
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def task_params
