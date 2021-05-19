@@ -1,0 +1,10 @@
+<h1>管理画面</h1>
+<h3>ユーザーの一覧</h3>
+
+<div class="user_index">
+  <% @users.each do |user| %>
+    <%= user.id %>:<%= user.name %>
+  <% end %>
+</div>
+
+<%= link_to 'タスク一覧へもどる', tasks_path %>
