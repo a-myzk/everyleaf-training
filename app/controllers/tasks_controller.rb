@@ -29,6 +29,9 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def edit
+  end
+
   def create
     @task = Task.create(task_params)
     @task = current_user.tasks.build(task_params)
@@ -41,9 +44,6 @@ class TasksController < ApplicationController
         render :new
       end
     end
-  end
-
-  def edit
   end
 
   def update
