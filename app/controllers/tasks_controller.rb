@@ -3,23 +3,22 @@ class TasksController < ApplicationController
   PER = 5
 
   def index
-    # @tasks = Task.where(user_id: current_user.id).includes(:user).order("created_at DESC")
     if params[:sort_expired]
-      @tasks = Task.all.order(expired_at: :DESC).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.order(expired_at: :DESC).page(params[:page]).per(PER)
     elsif params[:sort_priority]
-      @tasks = Task.all.order(priority: :DESC).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.order(priority: :DESC).page(params[:page]).per(PER)
     elsif params[:search]
       if params[:search_title].present? && params[:search_status].present?
-        @tasks = Task.search_title(params[:search_title]).search_status(params[:search_status]).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.search_title(params[:search_title]).search_status(params[:search_status]).page(params[:page]).per(PER)
       elsif params[:search_title].present?
-        @tasks = Task.search_title(params[:search_title]).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.search_title(params[:search_title]).page(params[:page]).per(PER)
       elsif params[:search_status].present?
-        @tasks = Task.search_status(params[:search_status]).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.search_status(params[:search_status]).page(params[:page]).per(PER)
       else
-        @tasks = Task.all.order(created_at: :DESC).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.all.order(created_at: :DESC).page(params[:page]).per(PER)
       end
     else
-      @tasks = Task.all.order(created_at: :DESC).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.all.order(created_at: :DESC).page(params[:page]).per(PER)
     end
   end
 
