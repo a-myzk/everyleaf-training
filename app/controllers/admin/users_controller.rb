@@ -1,12 +1,15 @@
 class Admin::UsersController < ApplicationController
   before_action :if_not_admin
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  PER = 5
 
   def index
     @users = User.select(:id, :name).order(created_at: :DESC)
   end
 
   def show
+    @tasks = @user.tasks.order(created_at: :DESC).page(params[:page]).per(PER)
+
   end
 
   def new
