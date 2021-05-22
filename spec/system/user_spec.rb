@@ -101,8 +101,6 @@ RSpec.describe 'ユーザー管理機能', type: :system do
       end
       it '管理ユーザはユーザの削除をできる' do
         visit admin_users_path
-        # first('tbody tr').click_link '削除'
-        # binding.irb
         all('tbody tr')[1].click_link '削除'
         expect(page.accept_confirm).to eq '本当に削除しますか？'
         expect(page).to have_content '削除しました'
@@ -120,14 +118,3 @@ RSpec.describe 'ユーザー管理機能', type: :system do
     end
   end
 end
-
-# describe '【テストのグループ化（〇〇に関するテスト）】' do
-#   context '【条件別にグループ化（〇〇の場合）】' do
-#     before do
-#       【共通の前準備をする】
-#     end
-#     it '【テストの内容（〇〇になること）】' do
-#       【テストの処理（〇〇になることを期待する）】
-#     end
-#   end
-# end
