@@ -11,9 +11,8 @@ class User < ApplicationRecord
 
   private
   def do_not_destroy_last_admin
-    if User.where(admin: true).count == 1
-      errors.add :base, '管理者アカウントは必ず1つ必要です。'
-      throw(:abort)
+    if self.admin? && User.where(admin: :true).count == 1
+      throw :abort
     end
   end
 end
