@@ -1,9 +1,14 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  let!(:task) { FactoryBot.create(:task) }
-  let!(:second_task) { FactoryBot.create(:second_task) }
-  let!(:third_task) { FactoryBot.create(:third_task) }
+  let(:user) { FactoryBot.create(:user) }
+  let!(:task) { FactoryBot.create(:task, user: user) }
+  let!(:second_task) { FactoryBot.create(:second_task, user: user) }
+  let!(:third_task) { FactoryBot.create(:third_task, user: user) }
   before do
+    visit new_session_path
+    fill_in 'session[email]', with: 'test_email1@a.com'
+    fill_in 'session[password]', with: 'password1'
+    click_button 'ログイン'
     visit tasks_path
   end
 
@@ -49,11 +54,10 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe 'タスク管理機能', type: :system do
     describe '検索機能' do
       before do
-        FactoryBot.create(:task, title: 'task', expired_at: '2021-05-01 00:00:00', status: 1)
-        FactoryBot.create(:second_task, title: 'sample', expired_at: '2021-05-01 00:00:00', status: 1)
       end
       context 'タイトルであいまい検索をした場合' do
         it "検索キーワードを含むタスクで絞り込まれる" do
+          visit tasks_path
           fill_in 'タスク名', with: 'task'
           click_on '検索'
           expect(page).to have_content 'task'
@@ -61,6 +65,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       context 'ステータス検索をした場合' do
         it "ステータスに完全一致するタスクが絞り込まれる" do
+          visit tasks_path
           select '未着手', from: 'search_status'
           click_on '検索'
           expect(page).to have_content '未着手'
@@ -68,6 +73,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       context 'タイトルのあいまい検索とステータス検索をした場合' do
         it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+          visit tasks_path
           fill_in 'タスク名', with: 'task'
           select '未着手', from: 'search_status'
           click_on '検索'
@@ -81,7 +87,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '詳細表示機能' do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do
-        task = FactoryBot.create(:task, title: 'task')
+        task = FactoryBot.create(:task, user: user)
         visit task_path(task.id)
         expect(page).to have_content 'task'
       end
