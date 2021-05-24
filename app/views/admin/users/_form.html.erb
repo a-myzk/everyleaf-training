@@ -21,6 +21,9 @@
   <%= f.password_field :password %>
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
+  <%= f.label :admin, "管理者権限" %>
+  <%= f.radio_button :admin, "true", for: "true" %>あり
+  <%= f.radio_button :admin, "false", for: "false" %>なし
   <%#= f.submit "アカウント作成" %>
 
   <div class="actions">
