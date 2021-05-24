@@ -1,34 +1,16 @@
-<h1>タスク一覧</h1>
-
-<br>
-
-<div class="search_box" >
-  <%= form_with(model: @task, method: :get, local: true) do |form| %>
-    <%= form.label :search_title, 'タスク名' %>
-    <%= form.text_field :search_title %>
-
-    <%= form.label :search_status, 'ステータス名' %>
-    <%= form.select :search_status, Task.statuses.keys, {include_blank: "選択してください"} %>
-
-    <%= form.submit '検索', name: 'search' %>
-  <% end %>
-</div>
-
-<h4>
-  <button type="button" class="btn btn-primary">
-    <%= link_to "新規登録", new_task_path, :style=>"color:white;" %>
-  </button>
-</h4>
+<h3>【管理】</h3>
+<h1><%= @user.name %>のページ</h1>
+<p>メールアドレス: <%= @user.email %></p>
 
 <table class="table">
   <thead>
     <tr>
       <th>タスク名</th>
       <th>タスク詳細</th>
-      <th class="sort_expired"><%= link_to "終了期限", tasks_path(sort_expired: "true") %></th>
+      <th>終了期限</th>
       <th>ステータス</th>
-      <th class="sort_priority"><%= link_to "優先度", tasks_path(sort_priority: "true") %></th>
-      <th>ユーザー名</th>
+      <th>優先度</th>
+      <th>ユーザ名</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -50,5 +32,6 @@
   </tbody>
 </table>
 
-  <%= paginate @tasks, theme: 'twitter-bootstrap-4'%>
+<%= paginate @tasks, theme: 'twitter-bootstrap-4'%>
 
+<%= link_to '管理画面へもどる', admin_users_path %>

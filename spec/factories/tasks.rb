@@ -5,6 +5,7 @@ FactoryBot.define do
     expired_at { '2021-05-01 00:00:00' }
     status { 1 }
     priority { 1 }
+    association :user
   end
 
   factory :second_task, class: Task do
@@ -13,6 +14,7 @@ FactoryBot.define do
     expired_at { '2021-05-15 00:00:00' }
     status { 2 }
     priority { 2 }
+    association :user
   end
 
   factory :third_task, class: Task do
@@ -21,5 +23,6 @@ FactoryBot.define do
     expired_at { '2021-05-30 00:00:00' }
     status { 3 }
     priority { 3 }
+    association :user
   end
 end

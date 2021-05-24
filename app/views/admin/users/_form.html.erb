@@ -1,0 +1,38 @@
+<h3>【管理】</h3>
+
+<h1>サインアップ</h1>
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this <%= @user.name %> from being saved:</h2>
+    <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: [:admin, @user], local: true) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+  <%= f.label :admin, "管理者権限" %>
+  <%= f.radio_button :admin, "true", for: "true" %>あり
+  <%= f.radio_button :admin, "false", for: "false" %>なし
+  <%#= f.submit "アカウント作成" %>
+
+  <div class="actions">
+    <% if controller.action_name == "new" %>
+      <%= f.submit 'アカウント作成' %>
+    <% else controller.action_name == "edit" %>
+      <%= f.submit 'アカウント更新' %>
+    <% end %>
+  </div>
+
+<% end %>
+

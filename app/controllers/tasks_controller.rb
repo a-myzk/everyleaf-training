@@ -4,21 +4,21 @@ class TasksController < ApplicationController
 
   def index
     if params[:sort_expired]
-      @tasks = Task.all.order(expired_at: :DESC).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.order(expired_at: :DESC).page(params[:page]).per(PER)
     elsif params[:sort_priority]
-      @tasks = Task.all.order(priority: :DESC).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.order(priority: :DESC).page(params[:page]).per(PER)
     elsif params[:search]
       if params[:search_title].present? && params[:search_status].present?
-        @tasks = Task.search_title(params[:search_title]).search_status(params[:search_status]).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.search_title(params[:search_title]).search_status(params[:search_status]).page(params[:page]).per(PER)
       elsif params[:search_title].present?
-        @tasks = Task.search_title(params[:search_title]).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.search_title(params[:search_title]).page(params[:page]).per(PER)
       elsif params[:search_status].present?
-        @tasks = Task.search_status(params[:search_status]).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.search_status(params[:search_status]).page(params[:page]).per(PER)
       else
-        @tasks = Task.all.order(created_at: :DESC).page(params[:page]).per(PER)
+        @tasks = current_user.tasks.order(created_at: :DESC).page(params[:page]).per(PER)
       end
     else
-      @tasks = Task.all.order(created_at: :DESC).page(params[:page]).per(PER)
+      @tasks = current_user.tasks.order(created_at: :DESC).page(params[:page]).per(PER)
     end
   end
 
@@ -29,9 +29,12 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def edit
+  end
+
   def create
     @task = Task.create(task_params)
-    #@task = current_user.tasks.build(task_params)
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     else
@@ -41,9 +44,6 @@ class TasksController < ApplicationController
         render :new
       end
     end
-  end
-
-  def edit
   end
 
   def update
@@ -61,7 +61,7 @@ class TasksController < ApplicationController
 
   private
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def task_params

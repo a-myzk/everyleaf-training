@@ -1,11 +1,17 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  let!(:task) { FactoryBot.create(:task) }
-  let!(:second_task) { FactoryBot.create(:second_task) }
-  let!(:third_task) { FactoryBot.create(:third_task) }
+  let(:user) { FactoryBot.create(:user) }
+  let!(:task) { FactoryBot.create(:task, user: user) }
+  let!(:second_task) { FactoryBot.create(:second_task, user: user) }
+  let!(:third_task) { FactoryBot.create(:third_task, user: user) }
   before do
+    visit new_session_path
+    fill_in 'session[email]', with: 'test_email1@a.com'
+    fill_in 'session[password]', with: 'password1'
+    click_button 'ログイン'
     visit tasks_path
   end
+
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
@@ -16,12 +22,12 @@ RSpec.describe 'タスク管理機能', type: :system do
         find('.status_field').set(1)
         find('.priority_field').set(1)
         click_on '登録する'
-        # expect(page).to have_content 'task_title'
         expect(page).to have_content 'task_content'
         expect(page).to have_content '未着手'
       end
     end
   end
+
   describe '一覧表示機能' do
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
@@ -44,26 +50,22 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
   end
+
   describe 'タスク管理機能', type: :system do
     describe '検索機能' do
       before do
-        # 必要に応じて、テストデータの内容を変更して構わない
-        FactoryBot.create(:task, title: 'task', expired_at: '2021-05-01 00:00:00', status: 1)
-        FactoryBot.create(:second_task, title: 'sample', expired_at: '2021-05-01 00:00:00', status: 1)
       end
       context 'タイトルであいまい検索をした場合' do
         it "検索キーワードを含むタスクで絞り込まれる" do
-          # タスクの検索欄に検索ワードを入力する (例: task)
+          visit tasks_path
           fill_in 'タスク名', with: 'task'
-          # 検索ボタンを押す
           click_on '検索'
           expect(page).to have_content 'task'
         end
       end
       context 'ステータス検索をした場合' do
         it "ステータスに完全一致するタスクが絞り込まれる" do
-          # ここに実装する
-          # プルダウンを選択する「select」について調べてみること
+          visit tasks_path
           select '未着手', from: 'search_status'
           click_on '検索'
           expect(page).to have_content '未着手'
@@ -71,7 +73,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
       context 'タイトルのあいまい検索とステータス検索をした場合' do
         it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
-          # ここに実装する
+          visit tasks_path
           fill_in 'タスク名', with: 'task'
           select '未着手', from: 'search_status'
           click_on '検索'
@@ -81,10 +83,11 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
   end
+
   describe '詳細表示機能' do
     context '任意のタスク詳細画面に遷移した場合' do
       it '該当タスクの内容が表示される' do
-        task = FactoryBot.create(:task, title: 'task')
+        task = FactoryBot.create(:task, user: user)
         visit task_path(task.id)
         expect(page).to have_content 'task'
       end

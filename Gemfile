@@ -41,3 +41,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari', '~> 0.17.0'
 gem 'bootstrap4-kaminari-views'
+gem 'bcrypt'
