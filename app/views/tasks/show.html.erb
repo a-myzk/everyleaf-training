@@ -26,7 +26,14 @@
 </p>
 
 <p>
-  <strong>User</strong>
+  <strong>ラベル</strong>
+  <% @task.labels.each do |label| %>
+    <h3 class="label label-info"><%= label.label_name %></h3>
+  <% end %>
+</p>
+
+<p>
+  <strong>ユーザー</strong>
   <%= @task.user.name %>
 </p>
 
