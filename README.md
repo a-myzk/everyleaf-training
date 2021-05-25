@@ -6,26 +6,31 @@
 ### Taskモデル
 | カラム名 | データ型 | 備考 |
 | - | - | - |
-| id | integer | タスクID |
 | title | string | タスク名 |
 | content | text | タスク詳細 |
 | expired_at | datetime | 終了期限 |
 | status | integer | ステータス |
 | priority | integer | 優先順位 |
+| user_id | bigint | ユーザーID |
 
 ### Userモデル
 | カラム名 | データ型 | 備考 |
 | - | - | - |
-| user_id | integer | ユーザーID |
 | name | string | ユーザー名 |
 | email | string | メールアドレス |
 | password_digest | string | パスワード |
+| admin | boolean | 管理者 |
 
 ### Labelモデル
 | カラム名 | データ型 | 備考 |
 | - | - | - |
-| label_id | integer | ラベルID |
 | label_name | string | ラベル名 |
+
+### Labelingモデル
+| カラム名 | データ型 | 備考 |
+| - | - | - |
+| task_id | integer | タスクID |
+| label_id | integer | ラベルID |
 
 
 
