@@ -10,3 +10,9 @@ name = "taro"
 email = "taro@a.com"
 password = "0000pppp"
 User.create!(name: name, email: email, password: password, password_confirmation: password, admin: true)
+
+5.times do |n|
+  Label.create!(
+    label_name: "ラベル#{n + 1}",
+  )
+end
