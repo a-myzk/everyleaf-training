@@ -37,13 +37,8 @@
   </div>
 
   <div class="lafel_field">
-    <%# <%= form.label :label, "ラベル" %>
-    <%# <%= form.collection_check_boxes(:label_ids, Label.all, :id, :label_name) %>
     <%= form.label :label, "ラベル" %>
-    <% Label.all.each do |label| %>
-      <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
-    <%= label.label_name %>
-  <% end %>
+    <p><%= form.collection_check_boxes(:label_ids, Label.all, :id, :label_name) %></p>
   </div>
 
   <div class="actions">
