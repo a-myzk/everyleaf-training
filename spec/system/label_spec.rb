@@ -32,4 +32,26 @@ RSpec.describe 'ラベル機能', type: :system do
     end
   end
 
+  describe '一覧表示機能' do
+    context '一覧画面に遷移した場合' do
+      it '作成済みのタスクに紐付いたラベルが表示される' do
+        visit tasks_path
+        expect(page).to have_content 'label1'
+      end
+    end
+  end
+
+  describe 'ラベル検索機能' do
+    context 'ラベルを指定して検索した場合' do
+      it '検索したラベルが紐付いたタスクが表示される' do
+        visit tasks_path
+        fill_in 'タスク名', with: 'task'
+        select 'label1', from: 'label_id'
+        click_on '検索'
+        expect(page).to have_content 'label1'
+      end
+    end
+  end
+  
+
 end
