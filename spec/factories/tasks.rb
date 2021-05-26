@@ -20,7 +20,7 @@ FactoryBot.define do
   factory :third_task, class: Task do
     title { 'task_title3' }
     content { 'task_content3' }
-    expired_at { '2021-05-30 00:00:00' }
+    expired_at { '2021-05-10 00:00:00' }
     status { 3 }
     priority { 3 }
     association :user
