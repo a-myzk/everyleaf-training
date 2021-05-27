@@ -18,7 +18,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'spring-commands-rspec'
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'launchy'
   gem 'pry-rails'
   gem 'better_errors'
@@ -42,3 +41,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari', '~> 0.17.0'
 gem 'bootstrap4-kaminari-views'
 gem 'bcrypt'
+gem 'faker'
